@@ -1,16 +1,16 @@
-#################################################################
-# Dockerfile for Amazon Linux.                                  #
-# Use case: Building Lambda packages                            #
-# Includes: Nodejs v6.10.0,                                     #
-#           Python 2.7,                                         #
-#           Python 3.6,                                         #
-#                                                               #
-#                                                               #
-# How to build:                                                 #
-# docker build --no-cache -t amazonlinux-lambda -f Dockerfile . #
-# How to run:                                                   #
-# docker run -it amazonlinux-lambda                             #
-#################################################################
+#############################################################################
+# Dockerfile for Amazon Linux.                                              #
+# Use case: Building Lambda packages                                        #
+# Includes: Nodejs v6.10.0,                                                 #
+#           Python 2.7,                                                     #
+#           Python 3.6                                                      #
+#                                                                           #
+#                                                                           #
+# How to build:                                                             #
+# docker build --no-cache -t amazonlinux-lambda -f Dockerfile .             #
+# How to run:                                                               #
+# docker run --rm -it -p 9999:9999 -v $(pwd):/workspace amazonlinux-lambda  #
+#############################################################################
 
 FROM amazonlinux:latest
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -34,6 +34,8 @@ RUN yum -y update && \
     zip \
     unzip \
     python36
+
+RUN mkdir /workspace
 
 # Install NVM and Nodejs
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash \

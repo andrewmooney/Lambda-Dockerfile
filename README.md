@@ -16,7 +16,7 @@ This can either be done remotely on an EC2 instance or locally in a Docker conta
 
 ## Creating an Amazon Linux Docker container
 
-Clone repo in to local directory.
+Clone repo in to the root directory of your Lambda project.
 ```bash
 git clone https://github.com/andrewmooney/Lambda-Dockerfile.git
 ```
@@ -26,10 +26,11 @@ In a terminal window navigate to the location of the Dockerfile and run the foll
 docker build --no-cache -t amazonlinux-lambda -f Dockerfile .
 ```
 
-Once the build has completed run the follow= ing command to launch the container.
+Once the build has completed run the following command to launch the container.
 ```bash
-docker run -it amazonlinux-lambda
+docker run --rm -it -p 9999:9999 -v $(pwd):/workspace amazonlinux-lambda
 ```
+This will also mount your local project directory into the /workspace directory of the container.
 
 This should drop you in to the shell of the container.
 ```bash
